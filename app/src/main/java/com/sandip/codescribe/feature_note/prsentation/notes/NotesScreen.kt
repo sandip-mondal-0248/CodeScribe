@@ -42,6 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.sandip.codescribe.feature_note.prsentation.notes.components.NoteItem
 import com.sandip.codescribe.feature_note.prsentation.notes.components.OrderSection
+import com.sandip.codescribe.feature_note.prsentation.util.Screen
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -60,7 +61,7 @@ fun NotesScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    navController.navigate(Screen.AddEditNoteScreen.route)
                 },
                 containerColor = MaterialTheme.colorScheme.primary,
                 content = { Icon(Icons.Default.Add, "Add note") }
@@ -113,7 +114,10 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-
+                                navController.navigate(
+                                    Screen.AddEditNoteScreen.route +
+                                    "?noteId=${note.id} & noteColor=${note.color}"
+                                )
                             },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
